@@ -23,25 +23,27 @@ class ConvertHandler {
   }
   
   getUnit(input) {
-	const units = ['gal', 'L', 'mi', 'km', 'lbs', 'kg'];
+    const units = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
     const regex = /[a-zA-Z]+$/;
     const unitMatch = input.match(regex);
-    if (unitMatch && units.includes(unitMatch[0])) {
-      return unitMatch[0];
+    if (unitMatch && units.includes(unitMatch[0].toLowerCase())) {
+      const unit = unitMatch[0].toLowerCase();
+      return unit === 'l' ? 'L' : unit; // Convert 'l' to 'L' for liter
     }
-    return null;
+    return null; // Return null for invalid units
   }
-  
+
   getReturnUnit(initUnit) {
-    const units = {
+    const unit = initUnit.toLowerCase();
+    const returnUnits = {
       gal: 'L',
-      L: 'gal',
+      l: 'gal',
       mi: 'km',
       km: 'mi',
       lbs: 'kg',
       kg: 'lbs'
     };
-    return units[initUnit];
+    return returnUnits[unit];
   }
 
   spellOutUnit(unit) {
